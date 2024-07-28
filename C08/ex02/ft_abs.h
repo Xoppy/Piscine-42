@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_abs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-marc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 15:33:24 by adi-marc          #+#    #+#             */
-/*   Updated: 2024/07/27 06:51:52 by adi-marc         ###   ########.fr       */
+/*   Created: 2024/07/28 13:39:22 by adi-marc          #+#    #+#             */
+/*   Updated: 2024/07/28 13:40:42 by adi-marc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#ifdef FT_ABS_H
+# define FT_ABS_H
 
-int	ft_ultimate_range(int **range, int min, int max)
-{
-	int	*ptr;
-	int	i;
+# define ABS(value) ((value) + (value >> 31) ^ ((value) >> 31))
 
-	if (min >= max)
-	{
-		*range = NULL;
-		return (0);
-	}
-	ptr = (int *) malloc(sizeof(int) * (max - min));
-	i = 0;
-	while (min < max)
-	{
-		ptr[i] = min;
-		min++;
-		i++;
-	}
-	*range = ptr;
-	return (i);
-}
+#endif

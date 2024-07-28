@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-marc <adi-marc@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 13:27:04 by adi-marc          #+#    #+#             */
-/*   Updated: 2024/07/28 17:16:13 by adi-marc         ###   ########.fr       */
+/*   Created: 2024/07/24 16:37:19 by adi-marc          #+#    #+#             */
+/*   Updated: 2024/07/24 16:58:05 by adi-marc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-int	ft_strlen(char *str)
+int	ft_sqrt(int n)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (n == 1)
+		return (n);
+	while (i < n / 2)
 	{
+		if (i * i == n)
+			return (i);
 		i++;
 	}
-	return (i);
+	return (0);
 }
-
-char	*ft_strdup(char *src)
+/*int	main(void)
 {
-	char	*ptr;
-	int		i;
-
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	while (src[i] != '\0')
-	{
-		ptr[i] = src[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
+	printf("%d", ft_sqrt(16384));
+}*/
