@@ -5,91 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-marc <adi-marc@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 16:05:38 by adi-marc          #+#    #+#             */
-/*   Updated: 2024/07/28 13:31:15 by adi-marc         ###   ########.fr       */
+/*   Created: 2024/07/29 23:57:04 by adi-marc          #+#    #+#             */
+/*   Updated: 2024/07/30 01:01:57 by adi-marc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
-// Here I had to use stdlib for malloc, and incrementations like c++ j++ 
-// because of line restrictions in functions
 
-int	calculate_total_l(int size, char **strs, char *sep)
+int	ft_strlen(char *str)
 {
-	int	sep_l;
-	int	total_l;
-	int	i;
-	int	j;
+	int	index;
 
-	sep_l = 0;
-	total_l = 0;
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	index;
+
+	index = 0;
+	while (src[index] != '\0')
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (dest);
+}
+
+int	find_len(char **strings, int size, int slen)
+{
+	int	len;
+	int	i;
+
+	len = 0;
 	i = 0;
-	j = 0;
-	while (sep[sep_l] != '\0')
-		sep_l++;
 	while (i < size)
 	{
-		j = 0;
-		while (strs[i][j] != '\0')
-		{
-			total_l++;
-			j++;
-		}
-		i++;
+		len += ft_strlen(strings[i++]);
+		len += slen;
 	}
-	total_l += sep_l * (size - 1);
-	return (total_l);
+	len -= slen;
+	return (len);
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	char	*ptr;
+	int		len;
 	int		i;
-	int		j;
-	int		c;
-	int		total_l;
+	char	*s;
+	char	*d;
 
+	if (size == 0)
+		return ((char *)malloc(sizeof(char)));
+	len = find_len(strs, size, ft_strlen(sep));
+	s = (char *)malloc((len + 1) * sizeof(char));
+	d = s;
+	if (!d)
+		return (0);
 	i = 0;
-	c = 0;
-	total_l = calculate_total_l(size, strs, sep);
-	ptr = malloc(total_l + 1);
 	while (i < size)
 	{
-		j = 0;
-		while (strs[i][j] != '\0')
-			ptr[c++] = strs[i][j++];
-		j = 0;
-		while (sep[j] != 0 && i != size - 1)
-			ptr[c++] = sep[j++];
-		i++;
+		ft_strcpy(d, strs[i]);
+		d += ft_strlen(strs[i]);
+		if (i++ < size - 1)
+		{
+			ft_strcpy(d, sep);
+			d += ft_strlen(sep);
+		}
 	}
-	ptr[c] = '\0';
-	return (ptr);
+	*d = '\0';
+	return (s);
 }
-/*
-int main()
-{
-    char *strs[] = {
-        "This is a very long string that should cause issues",
-        "Another long string to test the limits of allocation",
-        "Yet another string to push the boundaries of the buffer",
-        "One more long string to ensure we test thoroughly",
-        "Final long string to see if everything is handled properly"
-    };
-    char *sep = " <--separator--> ";
-    char *result = ft_strjoin(5, strs, sep);
-
-    if (result)
-    {
-        printf("%s\n", result);
-        free(result);
-    }
-    else
-    {
-        printf("Memory allocation failed.\n");
-    }
-	
-    return 0;
-}
-*/
